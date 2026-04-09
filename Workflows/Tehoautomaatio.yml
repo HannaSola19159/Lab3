@@ -49,6 +49,9 @@ on: # This action will trigger when a contributor opens their first pull request
     types:
       - opened
 jobs: # The jobs that run in this workflow
+  comment:
+    if:
+  github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
     steps: # The "steps" section contains the individual tasks that will be performed in this job.
       - name: Comment on first pull request
         uses: peter-evans/create-or-update-comment@v1 # This step uses the "peter-evans/create-or-update-comment" action to create or update a comment on the issue.
