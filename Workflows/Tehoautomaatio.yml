@@ -1,9 +1,9 @@
-
 name: Label & comment issues #the name of the workflow
 on: # This action will trigger when an issue is reopened or opened.
   issues:
     types:
-      - closed
+      - reopened
+      - opened
 jobs: # The jobs that run in this workflow
   label_issues: # the first job is named as label_issues
     runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
@@ -26,7 +26,32 @@ jobs: # The jobs that run in this workflow
           issue-number: ${{ github.event.issue.number }} # The issue number is obtained from the context of the event that triggered the action.
           body: | # The body of the comment is a message thanking the user for opening the issue.
            Thanks for opening this issue! We'll take a look as soon as possible.
-
-# Comment on when an issue is closed
-
-# Comment on when an users opens the first pull request 
+name: Comment closed issues #the name of the workflow
+on: # This action will trigger when an issue is closed.
+  issues:
+    types:
+      - closed
+jobs: # The jobs that run in this workflow
+  comment_closed_issues: # the first job is named comment_closed_issues
+    runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
+    permissions: # This job requires write access to issues in order to add labels and comment.
+      issues: write
+    steps: # The "steps" section contains the individual tasks that will be performed in this job.
+      - name: Comment on closed issue
+        uses: peter-evans/create-or-update-comment@v1 # This step uses the "peter-evans/create-or-update-comment" action to create or update a comment on the issue.
+        with:
+          issue-number: ${{ github.event.issue.number }} # The issue number is obtained from the context of the event that triggered the action.
+          body: | 
+           Fantastic! The issue is now resolved!
+name: Comment first pull request #the name of the workflow
+on: # This action will trigger when a contributor opens their first pull request
+  pull_request:
+    types:
+      - opened
+jobs: # The jobs that run in this workflow
+    steps: # The "steps" section contains the individual tasks that will be performed in this job.
+      - name: Comment on first pull request
+        uses: peter-evans/create-or-update-comment@v1 # This step uses the "peter-evans/create-or-update-comment" action to create or update a comment on the issue.
+        with:
+          issue-number: ${{ github.event.issue.number }} # The issue number is obtained from the context of the event that triggered the action.
+          body: | # The body of the comment is a message thanking the user for opening the issue.
