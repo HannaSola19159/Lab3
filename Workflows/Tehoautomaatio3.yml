@@ -6,7 +6,7 @@ on: # This action will trigger when a contributor opens their first pull request
 jobs: # The jobs that run in this workflow
   comment:
       if:  
-      github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
       runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
     steps: # The "steps" section contains the individual tasks that will be performed in this job.
       - name: Comment on first pull request
