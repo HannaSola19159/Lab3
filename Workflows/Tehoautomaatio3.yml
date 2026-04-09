@@ -12,6 +12,6 @@ jobs: # The jobs that run in this workflow
       - name: Comment on first pull request
         uses: peter-evans/create-or-update-comment@v1 # This step uses the "peter-evans/create-or-update-comment" action to create or update a comment on the issue.
         with:
-          issue-number: ${{ github.event.issue.number }} # The issue number is obtained from the context of the event that triggered the action.
+          issue-number: ${{ github.event.pull_request.number }} # The issue number is obtained from the context of the event that triggered the action.
           body: | # congratulate him for opening his/her first pull request.
             Congratulations on opening your first pull request! 
