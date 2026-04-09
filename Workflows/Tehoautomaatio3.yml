@@ -14,27 +14,3 @@ jobs: # The jobs that run in this workflow
           issue-number: ${{ github.event.pull_request.number }} # The issue number is obtained from the context of the event that triggered the action.
           body: | # congratulate him for opening his/her first pull request.
             Congratulations on opening your first pull request! 
-
-
-
-
-
-            name: Comment first pull request #the name of the workflow
-
-on:
-  pull_request:
-    types:
-      - opened
-
-jobs:
-  comment:
-    if: github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Comment on first pull request
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Congratulations on opening your first pull request!
